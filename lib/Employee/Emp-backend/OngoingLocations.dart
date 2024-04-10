@@ -5,6 +5,7 @@ import 'package:sealtech/Employee/Emp-backend/NewSite.dart';
 import 'package:sealtech/Employee/Emp-backend/service/database.dart';
 import 'package:sealtech/Employee/Emp-backend/UserDetailes.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sealtech/components/button.dart';
 
 class OngoingLocations extends StatefulWidget {
   const OngoingLocations({super.key});
@@ -41,10 +42,13 @@ class _OngoingLocationsState extends State<OngoingLocations> {
         if (!snapshot.hasData || snapshot.data.docs.isEmpty) {
           return Center(child: Text('No data available'));
         }
+        // Reverse the order of documents
+        List<DocumentSnapshot> reversedDocs =
+            snapshot.data.docs.reversed.toList();
         return ListView.builder(
-          itemCount: snapshot.data.docs.length,
+          itemCount: reversedDocs.length,
           itemBuilder: (context, index) {
-            DocumentSnapshot ds = snapshot.data.docs[index];
+            DocumentSnapshot ds = reversedDocs[index];
             return GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -213,15 +217,7 @@ class _OngoingLocationsState extends State<OngoingLocations> {
                       width: 60.0,
                     ),
                     const Text(
-                      "Edit",
-                      style: TextStyle(
-                        color: Colors.orange,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const Text(
-                      "Details",
+                      "Edit Details",
                       style: TextStyle(
                         color: Colors.orange,
                         fontSize: 20.0,
@@ -237,7 +233,7 @@ class _OngoingLocationsState extends State<OngoingLocations> {
                   "Name",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 24.0,
+                    fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -262,7 +258,7 @@ class _OngoingLocationsState extends State<OngoingLocations> {
                   "Deadline",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 24.0,
+                    fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -287,7 +283,7 @@ class _OngoingLocationsState extends State<OngoingLocations> {
                   "Address",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 24.0,
+                    fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -306,7 +302,7 @@ class _OngoingLocationsState extends State<OngoingLocations> {
                   ),
                 ),
                 SizedBox(height: 10.0),
-                ElevatedButton(
+                Button(
                   onPressed: () async {
                     Map<String, dynamic> updateInfo = {
                       "Name": namecontroller.text,
@@ -320,7 +316,7 @@ class _OngoingLocationsState extends State<OngoingLocations> {
                       Navigator.pop(context);
                     });
                   },
-                  child: Text("update"),
+                  buttonText: 'Update',
                 ),
               ],
             ),
